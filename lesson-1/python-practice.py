@@ -16,8 +16,28 @@ Everything else has 0 points.
 Use the test cases below to guide you!"""
 
 class Classy(object):
+    """Represent an object list and its classiness"""
     def __init__(self):
         self.items = []
+        self.classiness = 0
+
+    def addItem(self, item):
+        "Add item to items list"
+        self.items.append(item)
+        self.__updateClassiness(item)
+    
+    def __updateClassiness(self, item):
+        "Update classiness based on item type"
+        if item == "tophat":
+            self.classiness += 2
+        elif item == "bowtie":
+            self.classiness += 4
+        elif item == "monocle":
+            self.classiness += 5
+    
+    def getClassiness(self):
+        "Return classiness"
+        return self.classiness
 
 # Test cases
 me = Classy()
