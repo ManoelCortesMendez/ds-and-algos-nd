@@ -7,7 +7,14 @@
 
 
 def show_excitement():
-    # Your code goes here!
-    return ""
+    """Express our exitement by repeating a sentence five times"""
+    
+    sentence = "I am super excited for this course!"
+
+    # Build list with five times the same sentence
+    list_of_sentences = [sentence for _ in range(5)]
+
+    # Join sentences in list with spaces and return
+    return ' '.join(list_of_sentences)
 
 print show_excitement()
