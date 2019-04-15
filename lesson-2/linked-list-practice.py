@@ -75,7 +75,25 @@ class LinkedList(object):
     
     def delete(self, value):
         """Delete the first node with a given value."""
-        pass
+        
+        # If head value matches...
+        if self.head.value == value:
+            # ... make second element the new head
+            self.head = self.head.next
+        
+        # Get head
+        current = self.head
+
+        # While current element has a next element
+        while current.next:
+            # If value of next element matches...
+            if current.next.value == value:
+                # Link current element to element two spots down the chain
+                # That is, we skip the element that matches, effectively removing it from the linked list
+                current.next = current.next.next
+            else:
+                # Else, move to next element in list
+                current = current.next
 
 # Test cases
 # Set up some Elements
