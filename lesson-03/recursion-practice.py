@@ -4,7 +4,11 @@ Your code should have the same input/output as the
 iterative code in the instructions."""
 
 def get_fib(position):
-    return -1
+    # Define bases cases
+    if position == 0: return 0
+    if position == 1: return 1
+    # Define recursive step
+    return get_fib(position-1) + get_fib(position-2)
 
 # Test cases
 print get_fib(9)
