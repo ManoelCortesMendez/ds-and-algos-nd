@@ -175,7 +175,6 @@ class Graph(object):
         # Return list of all nodes visited
         return nodes_visited
         
-
     def dfs_names(self, start_node_num):
         """Return the results of dfs with numbers converted to names."""
         return [self.node_names[num] for num in self.dfs(start_node_num)]
@@ -187,11 +186,41 @@ class Graph(object):
         ARGUMENTS: start_node_num is the node number (integer)
         MODIFIES: the value of the visited property of nodes in self.nodes
         RETURN: a list of the node values (integers)."""
+        
+        # Get starting node
         node = self.find_node(start_node_num)
+
+        # Clear visited (just in case)
         self._clear_visited()
-        ret_list = [node.value]
-        # Your code here
-        return ret_list
+        
+        # Mark starting node as visited
+        node.visited = True
+
+        # Initialize list to store the value of the nodes visited
+        nodes_visited = [node.value]
+
+        # Store nodes in queue for revisits
+        # Ideally we'd use a true Queue, because we plan to add back, remove front
+        # But, we want to stick to the std library, so a list will have to do
+        nodes_queue = [node]
+
+        # While queue of nodes to revisit isn't empty...
+        while nodes_queue:
+            # Dequeue node
+            current_node = nodes_queue.pop(0)
+            # Follow each of its edges...
+            for edge in current_node.edges:
+                # If edge leads to unvisited node...
+                if not edge.node_to.visited:
+                    # Mark node as visited
+                    edge.node_to.visited = True
+                    # Append node value to list of visited node values
+                    nodes_visited.append(edge.node_to.value)
+                    # Append node to queue of nodes to revisit
+                    nodes_queue.append(edge.node_to)
+
+        # Return list of nodes visited in the order they were encountered
+        return nodes_visited
 
     def bfs_names(self, start_node_num):
         """Return the results of bfs with numbers converted to names."""
