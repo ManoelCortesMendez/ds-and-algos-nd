@@ -1,3 +1,5 @@
+import numpy
+
 class Node(object):
     def __init__(self, value):
         self.value = value
@@ -83,7 +85,24 @@ class Graph(object):
         column numbers represent to nodes.
         Store the edge values in each spot,
         and a 0 if no edge exists."""
-        return []
+
+        # Get dimension of matrix
+        # Matrix is square and indexes by from, to node values
+        dim = max([node.value for node in self.nodes]) + 1
+
+        # Initialize square matrix of zeros of dimension dim
+        adjacency_matrix = numpy.zeros((dim,dim))
+
+        # Insert edge value at the from, to coordinates
+        # That is, fully identify each "from, edge, to" triplet
+        for edge in self.edges:
+            row = edge.node_from.value
+            col = edge.node_to.value
+            val = edge.value
+
+            adjacency_matrix[row][col] = val
+
+        return adjacency_matrix
 
 graph = Graph()
 graph.insert_edge(100, 1, 2)
