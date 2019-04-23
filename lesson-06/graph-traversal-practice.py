@@ -131,19 +131,6 @@ class Graph(object):
         for node in self.nodes:
             node.visited = False
 
-    def dfs_helper(self, start_node):
-        """TODO: Write the helper function for a recursive implementation
-        of Depth First Search iterating through a node's edges. The
-        output should be a list of numbers corresponding to the
-        values of the traversed nodes.
-        ARGUMENTS: start_node is the starting Node
-        MODIFIES: the value of the visited property of nodes in self.nodes 
-        RETURN: a list of the traversed node values (integers).
-        """
-        ret_list = [start_node.value]
-        # Your code here
-        return ret_list
-
     def dfs(self, start_node_num):
         """Outputs a list of numbers corresponding to the traversed nodes
         in a Depth First Search.
@@ -153,6 +140,41 @@ class Graph(object):
         self._clear_visited()
         start_node = self.find_node(start_node_num)
         return self.dfs_helper(start_node)
+
+    def dfs_helper(self, start_node):
+        """TODO: Write the helper function for a recursive implementation
+        of Depth First Search iterating through a node's edges. The
+        output should be a list of numbers corresponding to the
+        values of the traversed nodes.
+        ARGUMENTS: start_node is the starting Node
+        MODIFIES: the value of the visited property of nodes in self.nodes 
+        RETURN: a list of the traversed node values (integers).
+        """
+
+        # Initialize list to store nodes visited
+        nodes_visited = [start_node.value]
+
+        # Traverse graph recursively and populate list of nodes visited
+        self.recurse_dfs(start_node, nodes_visited)
+
+        # Return complete list of nodes visited
+        return nodes_visited
+    
+    def recurse_dfs(self, node, nodes_visited):
+        """Recursively traverse graph and keep track of nodes visited"""
+
+        # For each edge of node...
+        for edge in node.edges:
+            # ... if edge leads to yet unvisited node...
+            if edge.node_to.value not in nodes_visited:
+                # ... add node to list of visited nodes
+                nodes_visited.append(edge.node_to.value)
+                # Recurse on newly discovered node
+                self.recurse_dfs(edge.node_to, nodes_visited)
+        
+        # Return list of all nodes visited
+        return nodes_visited
+        
 
     def dfs_names(self, start_node_num):
         """Return the results of dfs with numbers converted to names."""
