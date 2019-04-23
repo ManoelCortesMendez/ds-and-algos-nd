@@ -151,6 +151,9 @@ class Graph(object):
         RETURN: a list of the traversed node values (integers).
         """
 
+        # Mark start node as visited
+        start_node.visited = True
+
         # Initialize list to store nodes visited
         nodes_visited = [start_node.value]
 
