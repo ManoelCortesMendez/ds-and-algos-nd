@@ -85,11 +85,11 @@ class Graph(object):
         and a 0 if no edge exists."""
 
         # Get dimension of future matrix
-        dim = max([node.value for node in self.nodes]) + 1
+        dim = max([node.value for node in self.nodes])
 
         # Initialize square matrix of zeros
         # Matrix is square and indexes by from, to node values
-        adjacency_matrix = [[0 for _ in range(dim)] for _ in range(dim)]
+        adjacency_matrix = [[0 for _ in range(dim+1)] for _ in range(dim+1)]
 
         # Insert edge value at the from, to coordinates
         # That is, fully identify each "from, edge, to" triplet
@@ -100,6 +100,7 @@ class Graph(object):
 
             adjacency_matrix[row][col] = val
 
+        # Return matrix of edge values indexed by from, to node values
         return adjacency_matrix
 
 graph = Graph()
